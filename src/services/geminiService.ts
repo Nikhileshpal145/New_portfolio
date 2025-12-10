@@ -36,14 +36,15 @@ export const streamChatResponse = async (
 ) => {
   try {
     if (!ai) {
-      if (!import.meta.env.VITE_GEMINI_API_KEY) {
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      if (!apiKey) {
         throw new Error("API Key not configured");
       }
-      ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+      ai = new GoogleGenAI({ apiKey });
     }
 
     const chat = ai.chats.create({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-1.5-flash',
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
@@ -61,8 +62,14 @@ export const streamChatResponse = async (
         onChunk(chunk.text);
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini API Error:", error);
-    onChunk("\n[System Error: Unable to connect to neural interface. Please check API key configuration or try again later.]");
+    let errorMessage = "\n[System Error: Unable to connect to neural interface. Please check API key configuration or try again later.]";
+
+    if (error.message === "API Key not configured") {
+      errorMessage = "\n[System Error: GEMINI_API_KEY is missing. Please create a .env file with your API key.]";
+    }
+
+    onChunk(errorMessage);
   }
 };
