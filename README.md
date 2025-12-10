@@ -1,20 +1,59 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 🌐 3D Interactive Portfolio
 
-# Run and deploy your AI Studio app
+A fully immersive **3D interactive portfolio website** showcasing my skills, projects, and experience through interactive 3D visuals, smooth animations, and a game-like user experience. Unlike traditional portfolios, this one uses a 3D environment to make browsing engaging and memorable.
 
-This contains everything you need to run your app locally.
+## 🚀 Features
 
-View your app in AI Studio: https://ai.studio/apps/drive/17oSs12oIotMs727liFvw26CrdMPTEyJZ
+- 🎨 **3D Environment:** Built using Three.js / WebGL for realistic visuals.  
+- 🖱️ **Interactive Controls:** Smooth camera movement and object interactions.  
+- ✨ **Cinematic Animations:** GSAP-driven transitions and effects.  
+- 🧩 **Modular Sections:** About, Skills, Projects, Contact — represented as 3D elements.  
+- 📱 **Responsive UI:** Optimized for desktop, tablet, and mobile.  
+- ⚡ **Performance Optimized:** Compressed textures, lazy loading, and efficient rendering.  
+- 🎮 **Game-like Experience:** Explore the portfolio like a 3D world.
 
-## Run Locally
+## 🛠️ Tech Stack
 
-**Prerequisites:**  Node.js
+| Category | Tools |
+|----------|--------|
+| **Frontend** | React / Vite / Vanilla JS |
+| **3D Engine** | Three.js / WebGL |
+| **Design & Models** | Blender, Figma |
+| **Animations** | GSAP / Custom Shaders |
+| **Deployment** | GitHub Pages / Vercel |
 
+*(Edit the stack based on your actual technologies.)*
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 📁 Project Structure
+root/
+├── public/
+│ ├── models/
+│ ├── textures/
+│ └── assets/
+├── src/
+│ ├── components/
+│ ├── scenes/
+│ ├── shaders/
+│ ├── styles/
+│ └── main.js / main.jsx
+└── README.md
+
+## 🧑‍💻 How It Works
+
+- Initializes a 3D scene using Three.js.  
+- Loads GLTF/GLB models created in Blender.  
+- Animations are triggered through scroll, hover, or click events using GSAP.  
+- Each portfolio section is represented as a 3D object or floating panel.  
+- Optimized rendering for smooth performance.
+
+## 📦 Installation & Setup
+
+```bash
+git clone https://github.com/your-username/your-portfolio.git
+cd your-portfolio
+
+npm install
+npm run dev
+
+# Build for production
+npm run build
