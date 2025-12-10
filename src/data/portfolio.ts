@@ -1,5 +1,5 @@
 
-import { Project, Experience } from '../types';
+import { Project, Experience } from '@/types';
 
 export const PORTFOLIO_DATA = {
   name: "Nikhilesh Pal",

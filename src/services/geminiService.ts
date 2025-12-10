@@ -1,9 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
-import { PORTFOLIO_DATA } from "../data/portfolio";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 // Initialize Gemini client
-// Note: API Key is accessed via process.env.API_KEY as per instructions
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Note: API Key is accessed via import.meta.env.VITE_GEMINI_API_KEY as per instructions
+// Note: API Key is accessed via import.meta.env.VITE_GEMINI_API_KEY as per instructions
+// Lazy initialization to prevent crash if key is missing
+let ai: GoogleGenAI | null = null;
 
 const SYSTEM_INSTRUCTION = `
 You are the AI Assistant for ${PORTFOLIO_DATA.name}'s portfolio website. 
@@ -33,6 +35,13 @@ export const streamChatResponse = async (
   onChunk: (text: string) => void
 ) => {
   try {
+    if (!ai) {
+      if (!import.meta.env.VITE_GEMINI_API_KEY) {
+        throw new Error("API Key not configured");
+      }
+      ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+    }
+
     const chat = ai.chats.create({
       model: 'gemini-2.5-flash',
       config: {
@@ -54,6 +63,6 @@ export const streamChatResponse = async (
     }
   } catch (error) {
     console.error("Gemini API Error:", error);
-    onChunk("\n[System Error: Unable to connect to neural interface. Please check API key configuration.]");
+    onChunk("\n[System Error: Unable to connect to neural interface. Please check API key configuration or try again later.]");
   }
 };
